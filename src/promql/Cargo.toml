@@ -28,3 +28,20 @@ snafu.workspace = true
 
 [dev-dependencies]
 tokio.workspace = true
+api.workspace = true
+arrow-array.workspace = true
+common-catalog.workspace = true
+common-query.workspace = true
+criterion = { version = "0.5", features = ["async_tokio"] }
+frontend.workspace = true
+query.workspace = true
+servers.workspace = true
+session.workspace = true
+tests-integration = { path = "../../tests-integration" }
+
+[target.'cfg(target_os = "linux")'.dev-dependencies]
+pprof = { version = "0.14", features = ["criterion", "flamegraph"] }
+
+[[bench]]
+name = "promql_query"
+harness = false

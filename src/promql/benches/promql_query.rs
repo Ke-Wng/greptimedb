@@ -455,6 +455,28 @@ fn build_queries() -> Vec<(&'static str, PromQuery)> {
                 ..PromQuery::default()
             },
         ),
+        (
+            "promql_regex_selector",
+            PromQuery {
+                query: r#"http_requests_total{job=~"api.*|web.*", method="GET"}"#.to_string(),
+                start: start.to_string(),
+                end: end.to_string(),
+                step: "1m".to_string(),
+                lookback: DEFAULT_LOOKBACK_STRING.to_string(),
+                ..PromQuery::default()
+            },
+        ),
+        (
+            "promql_group_left",
+            PromQuery {
+                query: r#"rate(http_requests_total[5m]) / on(job) group_left sum by (job) (rate(http_requests_total[5m]))"#.to_string(),
+                start: start.to_string(),
+                end: end.to_string(),
+                step: "1m".to_string(),
+                lookback: DEFAULT_LOOKBACK_STRING.to_string(),
+                ..PromQuery::default()
+            },
+        ),
     ]
 }
 
